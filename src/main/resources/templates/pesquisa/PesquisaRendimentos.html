@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+    
+<head>
+	<title>Evolução Rendimentos</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+	   			<h1 class="panel-title aw-titulo-panel" th:text="${'Rendimento do Investimento: ' + nomeInvestimento}"></h1>
+	   			<a class="btn btn-link aw-link-panel" th:href="@{/rendimentos/novo/{id}(id=${codigo})}">Novo Rendimento</a>		
+	   		</div>
+	   	</div>
+	   	
+	   	<div class="panel-body">
+	   		
+	   		<div class="table-responsive">
+		   		<table class="table table-bordered table-striped">
+		   			<thead>
+		   				<tr>
+		   					<th class="text-center col-md-2">Data de Aniversário</th>
+		   					<th class="text-left col-md-2">Valor Investido</th>
+		   					<th class="text-center col-md-2">Rendimento Bruto</th>
+		   					<th class="text-center col-md-2">IR</th> 
+		   					<th class="text-right col-md-2">Saldo Bruto</th>
+		   					<th class="col-md-1"></th>
+		   				</tr>
+		   			</thead>
+		   			<tbody>
+		   				<tr th:each="rendimento : ${rendimentos}">	   	
+		   					<td class="text-center col-md-1" th:text="${rendimento.dataVencimento}">1</td>
+		   					<td class="text-left col-md-1" th:text="|R$ ${{rendimento.valor}}|"></td>	
+		   					<td class="text-center col-md-1" th:text="${'R$ ' + rendimento.juros + ' (' + rendimento.rendimentoPct} + '%)'"></td> 	
+		   					<td class="text-center col-md-1" th:text="|R$ ${{rendimento.IR}}|"></td> 
+		   					<td class="text-right" th:text="|R$ ${{rendimento.valorComJuros}}|"></td>	
+		   					<td class="text-center">
+		   						<a class="btn btn-link btn-xs" 
+		   								title="Editar" rel="tooltip" data-placement="top" th:href="@{/rendimentos/editar/{id}(id=${rendimento.id})}" >
+		   							<span class="glyphicon glyphicon-pencil"></span>
+		   						</a>
+		   						<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+		   								th:attr="data-codigo=${rendimento.id}, data-descricao=${rendimento.dataVencimento}"
+		   								title="Excluir" rel="tooltip" data-placement="top">
+		   							<span class="glyphicon glyphicon-remove"></span>
+		   						</a>	   								   						
+		   					</td>
+		   				</tr>
+		   				<tr>
+
+		   					<td colspan="6" th:if="${#lists.isEmpty(rendimentos)}">Nenhum rendimento foi encontrado</td>
+		   				</tr>
+		   			</tbody>		   			
+		   		</table>
+		   		   <br> <a class="btn btn-link aw-link-panel"  th:href="@{/info/grafico/{id}(id=${rendimentos[0].investimento.codigo})}">Ver Gráfico</a>	</br>
+		   		   <br> <a class="btn btn-link aw-link-panel" th:href="@{/info/{id}(id=${rendimentos[0].investimento.codigo})}">Informações Rendimento</a>		</br>	   			   		   		  		   	   			   		   		
+		   	</div>
+	   	</div>
+	   	<div layout:include="DialogoConfirmacaoExclusao"></div>
+	</div>
+</section>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_rendimentos" pageWidth="1100" pageHeight="800" orientation="Landscape" columnWidth="1060" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee9ecb87-d833-411d-a928-3dbe18650f32">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select
+    rendimento.`data_vencimento` AS dataVencimento,
+    rendimento.`rendimento_pct` AS rendimentoPct,
+    rendimento.`valor_com_juros` AS valorComJuros,
+    rendimento.`codigo` AS codigo,
+    rendimento.`juros` AS juros,
+    rendimento.`valor` AS valor,
+    rendimento.`id` AS id
+    from
+        `rendimento` rendimento
+ where codigo = 2]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="dataVencimento" class="java.sql.Date"/>
+	<field name="juros" class="java.lang.Double"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="valorComJuros" class="java.math.BigDecimal"/>
+	<field name="rendimentoPct" class="java.math.BigDecimal"/>
+	<group name="dataVencimento">
+		<groupExpression><![CDATA[$F{dataVencimento}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1060" height="25" uuid="049eec0c-539c-4162-9369-9ce9289076ad"/>
+				<textElement textAlignment="Center">
+					<font fontName="Candara" size="16" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Evolução Rendimento Mensal % ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="303">
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="1060" height="303" uuid="3f301ac5-e17f-4bdd-9c37-926f08f45cfd"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[($F{dataVencimento}.getMonth() + 1) + "/" + ($F{dataVencimento}.getYear() + 1900)]]></seriesExpression>
+						<categoryExpression><![CDATA[($F{dataVencimento}.getMonth() + 1) + "/" + ($F{dataVencimento}.getYear() + 1900)]]></categoryExpression>
+						<valueExpression><![CDATA[$F{rendimentoPct}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>

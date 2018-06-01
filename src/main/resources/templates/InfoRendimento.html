@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+    
+<head>
+	<title>Detalhamento Rendimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+	   			<h1 class="panel-title aw-titulo-panel" th:text="${'Informações Gerais: ' + info.investimento.nome}"></h1>
+	   			<a class="btn btn-link aw-link-panel" th:href="@{/rendimentos/{id}(id=${info.investimento.codigo})}">Voltar</a>
+	   		</div>
+	   	</div>
+	   	
+	   	<div class="panel-body">
+	   		
+	   		<div class="table-responsive">
+		   		<table class="table table-bordered table-striped">
+		   			<thead>
+		   				<tr>
+		   					<th class="text-center col-md-1">Rendimento Bruto sem IR</th>
+		   					<th class="text-center col-md-1">Rendimento Bruto em %</th>
+		   					<th class="text-left col-md-1">IR</th>
+		   					<th class="text-center col-md-1">Rendimento Bruto com IR</th>
+		   					<th class="text-center col-md-1">Previsão Resgate</th> 
+		   				</tr>
+		   			</thead>
+		   			<tbody>
+		   				<tr>
+		   					<td class="text-center col-md-1"  th:text="|R$ ${{info.rendBruto}}|"></td>
+		   					<td class="text-center col-md-1"  th:text="${{info.rendPerc}}"></td>
+		   					<td class="text-left col-md-1"  th:text="|R$ ${{info.IR}}|"></td>
+		   					<td class="text-center col-md-1"  th:text="|R$ ${{info.saldoBruto}}|"></td>
+		   					<td class="text-center col-md-1"  th:text="|R$ ${{info.previsaoResgate}}|"></td>
+		   				</tr>
+		   			</tbody>
+		   		</table>
+		   	</div>
+	   	</div>
+	</div>
+</section>
+</html>

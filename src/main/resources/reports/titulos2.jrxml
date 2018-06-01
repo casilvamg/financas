@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="titulos2" language="groovy" pageWidth="900" pageHeight="1000" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8e78bce-1411-4ae6-9967-3395c4d4cf56">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="132"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     titulo.`codigo` AS codigo,
+     titulo.`data_vencimento` AS dataVencimento,
+     titulo.`descricao` AS descricao,
+     titulo.`email` AS email,
+     titulo.`status` AS status,
+     titulo.`valor` AS valor
+FROM
+     `titulo` titulo]]> 
+	</queryString>
+	<field name="dataVencimento" class="java.sql.Date"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="880" height="92" backcolor="#006699" uuid="2790b2f8-04d9-4c36-a9df-d2ece89f41ca"/>
+				<staticText>
+					<reportElement x="20" y="20" width="691" height="43" forecolor="#FFFFFF" uuid="6686e616-e20d-4ffc-b7fb-67edb576402f"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Títulos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28">
+			<line>
+				<reportElement x="0" y="20" width="860" height="1" forecolor="#666666" uuid="c2f94e6a-a32a-47f7-a02c-f666c8683179"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="222" y="0" width="182" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="eb07826a-1c7a-499c-8386-c3f21659c559"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="404" y="0" width="151" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="cba32ab8-543a-4090-b801-4b34bee564dc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="555" y="1" width="136" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6263a90b-3281-4fa4-a1c2-13e7ab2eca89"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="691" y="0" width="169" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="817c417d-861b-4126-9efa-d5e5fe0bc99f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="222" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d8b5a4a6-6d06-4003-af51-6f4183be54e8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[dataVencimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="555" y="4" width="136" height="16" uuid="d25b956f-78f4-46de-9761-63414945a617"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="860" height="1" uuid="6605e5ca-52f4-4703-8759-1a1011b8fa08"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="222" height="20" uuid="7f52e2ea-2177-42f2-b4c0-663f15b8e648"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="392" y="4" width="151" height="20" uuid="79462025-da85-4d52-a203-2ca333a22465"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="222" y="4" width="170" height="20" uuid="3cd668d6-f34a-4d0e-b89b-fa52510275d6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="712" y="4" width="137" height="15" uuid="86a3183f-62db-4646-9f64-68526fdf4c35"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="1cc7d26b-ac70-4f8f-bffb-f010f8bc548f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="8b779c7c-596f-47ad-a958-3f5eb11a79e8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="3c44562a-827b-45f4-aa4c-3051215e80a4"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

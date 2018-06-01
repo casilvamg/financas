@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de Rendimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+    <form class="form-horizontal" method="POST" th:action="@{/rendimentos}" th:object="${rendimento}">
+    	<div layout:include="MensagemGeral"></div>
+    	<div layout:include="MensagemErro"></div>
+    
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<div class="clearfix">
+	   				<h1 class="panel-title aw-titulo-panel">Novo Rendimento</h1>
+	   				<a class="btn btn-link aw-link-panel" th:href="@{/investimentos}">Voltar para pesquisa</a>
+	   			</div>
+    		</div>
+    		
+    		<div class="panel-body">
+    			<input type="hidden" th:field="*{id}"/>    			  		
+				
+				<div class="form-group">
+					<label for="investimento" class="col-sm-2 control-label">Investimento</label> 
+					<div class="col-sm-4"> 
+						<input type="text" readonly="true" class="form-control" id="investimento" 
+						 th:value="${rendimento.investimento.nome}" th:field="*{investimento.nome}"/>
+					</div>
+				</div>								
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('dataVencimento')} ? has-error">
+					<label for="dataVencimento" class="col-sm-2 control-label">Data de Vencimento</label>
+					<div class="col-sm-2">  
+						<input type="text" class="form-control"	id="dataVencimento" th:field="*{dataVencimento}"
+							data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+							data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="bottom"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					<label for="valor" class="col-sm-2 control-label">Saldo</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="valor" th:field="*{valor}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('juros')} ? has-error">
+					<label for="juros" class="col-sm-2 control-label">Juros</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="juros" th:field="*{juros}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('IR')} ? has-error">
+					<label for="IR" class="col-sm-2 control-label">IR</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="IR" th:field="*{IR}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('valorComJuros')} ? has-error">
+					<label for="valorComJuros" class="col-sm-2 control-label">Saldo Com Juros</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="valorComJuros" th:field="*{valorComJuros}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('rendimentoPct')} ? has-error">
+					<label for="rendimentoPct" class="col-sm-2 control-label">Rendimento %</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="rendimentoPct" th:field="*{rendimentoPct}"/>
+					</div>
+				</div>
+				
+				 <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </form>
+</section>
+</html>
