@@ -1,10 +1,15 @@
 package com.works.cobranca.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //Service – Classes de serviço e/ou negócio.
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -46,28 +51,37 @@ public class CadastroTituloService {
 		return titulos.findAll(); 
 	}
 	
-	public List<Titulo> filtrar(TituloFilter filtro) {
+	/*public List<Titulo> filtrar(TituloFilter filtro) {
 		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
 		//return titulos.findByDescricaoContaining(descricao); 
 		return titulos.findByDescricaoContainingOrderByDataVencimentoAsc(descricao);
-	}
+	}*/
 	
+	public Page<Titulo> filtrar(TituloFilter filtro, Pageable pageable) {
+		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
+		return titulos.findByDescricaoContainingOrderByDataVencimentoAsc(descricao, pageable);
+	}
+
 	public List<Titulo> findByDataVencimentoAsc() {
 		return titulos.findAllByOrderByDataVencimentoAsc();
 	}
 	
 	public boolean enviarEmail(Long codigo) {
-						
-		Titulo titulo = titulos.findOne(codigo);		
+										
+		Titulo titulo = titulos.findOne(codigo);	
 		
-		String msg = "Olá. Por Favor verificar o seguinte débito: "  + titulo.getDescricao() + " que "
-				+ " venceu no dia " + titulo.getDataVencimento().toString() + ". Caso o Pagamento já tenha sido efetuado, por favor, "
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String dataFormatada = formato.format(titulo.getDataVencimento());
+		
+		
+		String msg = "Caro(a). Por Favor verificar o seguinte título: "  + titulo.getDescricao() + " que"
+				+ " venceu no dia " + dataFormatada + ". Caso a situação já tenha sido normalizada, por favor, "
 						+ "desconsiderar esse aviso.";
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 
         message.setText(msg);
-        message.setSubject("Débito em atraso!!!");
+        message.setSubject("Conta em atraso!!!");
         message.setTo(titulo.getEmail());
 
         try {

@@ -22,14 +22,31 @@ $('#confirmacaoEmailModal').on('show.bs.modal', function(event) {
 	var email = button.data('email');
 	
 	var modal = $(this);
-	var form = modal.find('form');
-	var action = form.data('url-base');
-	if (!action.endsWith('/')) {
-		action += '/';
-	}
-	form.attr('action', action + codigoTitulo);
 	
-	modal.find('.modal-body span').html('Tem certeza que deseja enviar cobrança para <strong>' + email + '</strong>?');
+	console.log(email);
+	
+	if (!email) { //modal reutilizável
+		modal.find('.modal-header h4').html('Aviso');  
+		modal.find('.modal-body span').html('Email não cadastrado.'); 
+		modal.find(".modal-footer")
+		.html("<button class='btn btn-primary' id='btn-modal-update' data-dismiss='modal'>OK</button>"); 
+	 }
+	else {
+		var form = modal.find('form');
+		var action = form.data('url-base');
+		if (!action.endsWith('/')) {
+			action += '/';
+		}
+		form.attr('action', action + codigoTitulo);
+				
+		modal.find('.modal-header h4').html('Você tem certeza?'); 
+		modal.find('.modal-body span').html('Tem certeza que deseja enviar cobrança para <strong>' + email + '</strong>?');
+		modal.find(".modal-footer")
+		.html("<button type = 'button' class='btn btn-link' id='btn-modal-cancel' data-dismiss='modal'>Cancelar</button>" +
+				" <button type = 'submit' class='btn btn-primary' id='btn-modal-cancel'>Enviar</button>"); 
+	
+	}
+	
 });
 
 $(function() {

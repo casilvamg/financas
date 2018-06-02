@@ -2,6 +2,7 @@ package com.works.cobranca.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -114,6 +115,7 @@ public class Titulo extends ABaseEntity<String> implements Serializable {
 	}
 	
 	public boolean isVencido() {
+		
 		if (this.getDataVencimento().before(new Date(System.currentTimeMillis())) && this.isPendente()) {
 			return true;
 		}

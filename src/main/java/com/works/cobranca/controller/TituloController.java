@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
+import com.works.cobranca.util.PageWrapper;
 import com.works.cobranca.model.SituacaoTitulo;
 import com.works.cobranca.model.StatusTitulo;
 import com.works.cobranca.model.Titulo;
@@ -62,7 +65,7 @@ public class TituloController {
 		}
 	}
 	
-	@RequestMapping
+	/*@RequestMapping
 	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
 		List<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro);
 		//List<Titulo> todosTitulos = cadastroTituloService.findByDataVencimentoAsc();
@@ -71,7 +74,17 @@ public class TituloController {
 		ModelAndView mv = new ModelAndView("pesquisa/PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
 		return mv;
-	}	
+	}	*/
+	
+	@RequestMapping
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro, Pageable pageable) {
+		Page<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro, pageable);		
+		PageWrapper<Titulo> page = new PageWrapper<Titulo>(todosTitulos, "/titulos");
+		ModelAndView mv = new ModelAndView("pesquisa/PesquisaTitulos");
+		mv.addObject("titulos", todosTitulos);
+		mv.addObject("page", page);
+		return mv;
+	}
 	
 	@RequestMapping("{codigo}")
 	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
