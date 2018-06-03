@@ -82,6 +82,10 @@ public class TituloController {
 		PageWrapper<Titulo> page = new PageWrapper<Titulo>(todosTitulos, "/titulos");
 		ModelAndView mv = new ModelAndView("pesquisa/PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
+		mv.addObject("previstoReceber", cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.RECEBER));
+		mv.addObject("previstoPagar", cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.PAGAR));
+		mv.addObject("realizadoReceber", cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.RECEBER, StatusTitulo.RECEBIDO));
+		mv.addObject("realizadoPagar", cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.PAGAR, StatusTitulo.RECEBIDO));
 		mv.addObject("page", page);
 		return mv;
 	}

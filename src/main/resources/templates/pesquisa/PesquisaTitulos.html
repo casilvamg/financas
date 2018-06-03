@@ -15,8 +15,7 @@
 		<div class="panel-heading">
 			<div class="clearfix">
 				<h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
-				<a class="btn btn-link aw-link-panel" th:href="@{/titulos/novo}">Novo
-					Título</a>
+				<a class="btn btn-link aw-link-panel" th:href="@{/titulos/novo}">Novo Título</a>
 			</div>
 		</div>
 
@@ -25,9 +24,7 @@
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="input-group">
-							<input class="form-control"
-								placeholder="Qual título você está procurando?"
-								autofocus="autofocus" th:field="*{descricao}"></input> <span
+							<input class="form-control" placeholder="Qual título você está procurando?" autofocus="autofocus" th:field="*{descricao}"></input> <span
 								class="input-group-btn">
 								<button type="submit" class="btn btn-default">
 									<i class="glyphicon glyphicon-search"></i>
@@ -64,15 +61,13 @@
 								th:classappend="${titulo.receber ? 'label-default' : 'label-info'}"></span>
 							</td>
 							<td class="text-center" th:attr="data-role=${titulo.codigo}">
-								<span class="label" th:text="${titulo.status.descricao}"
-								th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+								<span class="label" th:text="${titulo.status.descricao}" th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
 							</td>
 							<td class="text-center"><a class="btn btn-link btn-xs"
 								th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"
 								title="Editar" rel="tooltip" data-placement="top"> <span
 									class="glyphicon glyphicon-pencil"></span>
-							</a> <a class="btn btn-link btn-xs" data-toggle="modal"
-								data-target="#confirmacaoExclusaoModal"
+							</a> <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
 								th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"
 								title="Excluir" rel="tooltip" data-placement="top"> <span
 									class="glyphicon glyphicon-remove"></span>
@@ -93,6 +88,31 @@
 						</tr>
 					</tbody>
 				</table>
+				
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center" colspan="2">Previsto</th>
+							<th class="text-center" colspan="2">Realizado</th>
+						</tr>
+					</thead> 
+					<tbody> 
+					<tr>
+						<td class="text-center col-md-1" th:text="Pagar"></td>
+						<td class="text-center col-md-1" th:text="Receber"></td>
+						<td class="text-center col-md-1" th:text="Pagar"></td>
+						<td class="text-center col-md-1" th:text="Receber"></td>
+					</tr>			 
+					</tbody>
+					 <tfoot>
+					 <tr>
+						<td class="text-center col-md-1" th:text="${previstoPagar}"></td>
+						<td class="text-center col-md-1" th:text="${previstoReceber}"></td> 
+						<td class="text-center col-md-1" th:text="${realizadoPagar}"></td>
+						<td class="text-center col-md-1" th:text="${realizadoReceber}"></td>
+					</tr>
+					 </tfoot>			   		   		  		   	   			   		   		
+				 </table>
 			</div>	
 	   <div th:if="${page.totalPages != 1}" class="pagination-centered" align="center">
           <div>

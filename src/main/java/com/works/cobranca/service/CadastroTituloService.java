@@ -1,8 +1,7 @@
 package com.works.cobranca.service;
 
-import java.text.ParseException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 //Service – Classes de serviço e/ou negócio.
 import java.util.List;
 
@@ -14,6 +13,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.works.cobranca.model.SituacaoTitulo;
 import com.works.cobranca.model.StatusTitulo;
 import com.works.cobranca.model.Titulo;
 import com.works.cobranca.repository.Titulos;
@@ -64,6 +64,14 @@ public class CadastroTituloService {
 
 	public List<Titulo> findByDataVencimentoAsc() {
 		return titulos.findAllByOrderByDataVencimentoAsc();
+	}
+	
+	public BigDecimal findByValorPorSituacao(SituacaoTitulo situacao) {
+		return titulos.sumValorPorSituacao(situacao);
+	}
+	
+	public BigDecimal findByValorPorSituacaoAndStatus(SituacaoTitulo situacao, StatusTitulo status) {
+		return titulos.sumValorPorSituacaoAndStatus(situacao, status);
 	}
 	
 	public boolean enviarEmail(Long codigo) {
