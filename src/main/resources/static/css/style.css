@@ -24,3 +24,10 @@
 	float: left;
 	padding-top: 2px;
 }
+
+hr {
+      border: 1px solid #CCEEFF;
+      color: #CCEEFF;
+      background-color: #CCEEFF;
+      height: 10px;
+    }
