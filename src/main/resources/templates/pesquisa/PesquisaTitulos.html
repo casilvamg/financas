@@ -94,10 +94,13 @@
 						<tr>
 							<th class="text-center" colspan="2">Previsto</th>
 							<th class="text-center" colspan="2">Realizado</th>
+							<th class="text-center" colspan="2">Faltante</th>
 						</tr>
 					</thead> 
 					<tbody> 
 					<tr>
+						<td class="text-center col-md-1" th:text="Pagar"></td>
+						<td class="text-center col-md-1" th:text="Receber"></td>
 						<td class="text-center col-md-1" th:text="Pagar"></td>
 						<td class="text-center col-md-1" th:text="Receber"></td>
 						<td class="text-center col-md-1" th:text="Pagar"></td>
@@ -110,6 +113,8 @@
 						<td class="text-center col-md-1" th:text="${previstoReceber}"></td> 
 						<td class="text-center col-md-1" th:text="${realizadoPagar}"></td>
 						<td class="text-center col-md-1" th:text="${realizadoReceber}"></td>
+						<td class="text-center col-md-1" th:text="${previstoPagar} - ${realizadoPagar}"></td>
+						<td class="text-center col-md-1" th:text="${previstoReceber} - ${realizadoPagar}"></td>
 					</tr>
 					 </tfoot>			   		   		  		   	   			   		   		
 				 </table>
