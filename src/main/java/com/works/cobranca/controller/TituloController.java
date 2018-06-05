@@ -1,5 +1,12 @@
 package com.works.cobranca.controller;
 
+import com.works.cobranca.model.SituacaoTitulo;
+import com.works.cobranca.model.StatusTitulo;
+import com.works.cobranca.model.Titulo;
+import com.works.cobranca.repository.filter.TituloFilter;
+import com.works.cobranca.service.CadastroTituloService;
+import com.works.cobranca.util.PageWrapper;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -25,22 +32,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
-import com.works.cobranca.util.PageWrapper;
-import com.works.cobranca.model.SituacaoTitulo;
-import com.works.cobranca.model.StatusTitulo;
-import com.works.cobranca.model.Titulo;
-import com.works.cobranca.repository.filter.TituloFilter;
-import com.works.cobranca.service.CadastroTituloService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-	
+
 	private static final String CADASTRO_VIEW = "cadastro/CadastroTitulo";
-	
+
 	@Autowired
 	private CadastroTituloService cadastroTituloService;
-	
+
 	@Autowired 
 	private ApplicationContext   appContext;
 
@@ -50,7 +51,7 @@ public class TituloController {
 		mv.addObject(new Titulo());
 		return mv;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
