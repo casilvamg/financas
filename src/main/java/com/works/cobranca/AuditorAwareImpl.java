@@ -6,7 +6,7 @@ import com.works.cobranca.security.SecurityUtils;
 
 
 /*
- * A interface AuditorAware é usada para obter informações do usuário do Spring
+ *  A interface AuditorAware é usada para obter informações do usuário do Spring
  *  Security para campos createdby e modifiedby.
  * 
  */

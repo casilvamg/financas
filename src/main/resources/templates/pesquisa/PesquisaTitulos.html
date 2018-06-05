@@ -88,7 +88,8 @@
 						</tr>
 					</tbody>
 				</table>
-				</div>					
+				</div>
+									
 				<hr></hr>
 				
 				<div class="table-responsive">
@@ -116,8 +117,8 @@
 						<td class="text-center col-md-1" th:text="${previstoReceber}"></td> 
 						<td class="text-center col-md-1" th:text="${realizadoPagar}"></td>
 						<td class="text-center col-md-1" th:text="${realizadoReceber}"></td>
-						<td class="text-center col-md-1" th:text="${previstoPagar} - ${realizadoPagar}"></td>
-						<td class="text-center col-md-1" th:text="${previstoReceber} - ${realizadoPagar}"></td>
+						<td class="text-center col-md-1" th:text="${calcFaltantePagar}"></td>
+						<td class="text-center col-md-1" th:text="${calcFaltanteReceber}"></td>
 					</tr>
 					 </tfoot>			   		   		  		   	   			   		   		
 				 </table>

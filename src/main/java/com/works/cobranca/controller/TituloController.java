@@ -1,5 +1,7 @@
 package com.works.cobranca.controller;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 //Controller – Camada intermediária entre a view e a camada de serviços.
@@ -65,27 +67,27 @@ public class TituloController {
 		}
 	}
 	
-	/*@RequestMapping
-	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
-		List<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro);
-		//List<Titulo> todosTitulos = cadastroTituloService.findByDataVencimentoAsc();
-
-		
-		ModelAndView mv = new ModelAndView("pesquisa/PesquisaTitulos");
-		mv.addObject("titulos", todosTitulos);
-		return mv;
-	}	*/
-	
 	@RequestMapping
 	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro, Pageable pageable) {
+		
+		DecimalFormat decFormat = new java.text.DecimalFormat("#,###,##0.00");
+		BigDecimal calcFaltantePagar = new BigDecimal("0.0"); 
+		BigDecimal calcFaltanteReceber = new BigDecimal("0.0"); 
+				
 		Page<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro, pageable);		
 		PageWrapper<Titulo> page = new PageWrapper<Titulo>(todosTitulos, "/titulos");
+		
+		calcFaltantePagar = cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.PAGAR).subtract(cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.PAGAR, StatusTitulo.RECEBIDO)); 
+		calcFaltanteReceber = cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.RECEBER).subtract(cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.RECEBER, StatusTitulo.RECEBIDO)); 
+
 		ModelAndView mv = new ModelAndView("pesquisa/PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
-		mv.addObject("previstoReceber", cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.RECEBER));
-		mv.addObject("previstoPagar", cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.PAGAR));
-		mv.addObject("realizadoReceber", cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.RECEBER, StatusTitulo.RECEBIDO));
-		mv.addObject("realizadoPagar", cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.PAGAR, StatusTitulo.RECEBIDO));
+		mv.addObject("previstoReceber", decFormat.format(cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.RECEBER)));
+		mv.addObject("previstoPagar", decFormat.format(cadastroTituloService.findByValorPorSituacao(SituacaoTitulo.PAGAR)));
+		mv.addObject("realizadoReceber", decFormat.format(cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.RECEBER, StatusTitulo.RECEBIDO)));
+		mv.addObject("realizadoPagar", decFormat.format(cadastroTituloService.findByValorPorSituacaoAndStatus(SituacaoTitulo.PAGAR, StatusTitulo.RECEBIDO)));
+		mv.addObject("calcFaltantePagar", decFormat.format(calcFaltantePagar));
+		mv.addObject("calcFaltanteReceber", decFormat.format(calcFaltanteReceber));	
 		mv.addObject("page", page);
 		return mv;
 	}
@@ -147,5 +149,4 @@ public class TituloController {
 
         return new ModelAndView(view, params);
     }
-	
 }
