@@ -58,11 +58,18 @@
 							<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
 							<td class="text-center"><span class="label"
 								th:text="${titulo.situacao.descricao}"
-								th:classappend="${titulo.receber ? 'label-default' : 'label-info'}"></span>
+								th:classappend="${titulo.receber ? 'label-primary' : 'label-info'}"></span>
 							</td>
-							<td class="text-center" th:attr="data-role=${titulo.codigo}">
-								<span class="label" th:text="${titulo.status.descricao}" th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
-							</td>
+							
+							<td class="text-center"><th:block th:switch="${titulo.status.descricao}">
+								<span th:case="'Pendente'" class="label label-danger"
+									th:text="${titulo.status.descricao}"></span>
+								<span th:case="'Finalizado'" class="label label-success"
+									th:text="${titulo.status.descricao}"></span>
+								<span th:case="'Cancelado'" class="label label-default"
+									th:text="${titulo.status.descricao}"></span>
+							</th:block></td>
+							
 							<td class="text-center"><a class="btn btn-link btn-xs"
 								th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"
 								title="Editar" rel="tooltip" data-placement="top"> <span

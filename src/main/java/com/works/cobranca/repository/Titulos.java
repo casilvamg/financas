@@ -27,7 +27,7 @@ public interface Titulos extends JpaRepository<Titulo, Long> {
 	@Query("select titulo from Titulo titulo where situacao = :situacao Order By dataVencimento asc")
     public Page<Titulo> findByTitulosPorSituacao(@Param("situacao") SituacaoTitulo situacao, Pageable pageable);
 	
-	@Query("select sum(valor) from Titulo where situacao = :situacao")
+	@Query("select sum(valor) from Titulo where situacao = :situacao and status != 'CANCELADO'")
     public BigDecimal sumValorPorSituacao(@Param("situacao") SituacaoTitulo situacao);
 	
 	@Query("select sum(valor) from Titulo where situacao = :situacao and status = :status")

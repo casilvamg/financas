@@ -113,6 +113,14 @@ public class Titulo extends ABaseEntity<String> implements Serializable {
 		return StatusTitulo.PENDENTE.equals(this.status);
 	}
 	
+	public boolean isFinalizado() {
+		return StatusTitulo.RECEBIDO.equals(this.status);
+	}
+	
+	public boolean isCancelado() {
+		return StatusTitulo.CANCELADO.equals(this.status);
+	}
+	
 	public boolean isVencido() {
 		
 		if (this.getDataVencimento().before(new Date(System.currentTimeMillis())) && this.isPendente()) {

@@ -3,6 +3,7 @@ package com.works.cobranca.model;
 public enum StatusTitulo {
 
 	PENDENTE("Pendente"),
+	CANCELADO("Cancelado"),
 	RECEBIDO("Finalizado");
 	
 	private String descricao;
