@@ -26,8 +26,8 @@
 }
 
 hr {
-      border: 1px solid #87CEFA;
-      color: #87CEFA;
-      background-color: #87CEFA;
-      height: 10px;
+      border: 1px solid rgb(51, 122, 183);
+      color: rgb(51, 122, 183);
+      background-color: rgb(51, 122, 183);
+      height: 8px;
     }

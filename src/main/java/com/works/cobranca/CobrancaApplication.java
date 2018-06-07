@@ -22,25 +22,24 @@ public class CobrancaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CobrancaApplication.class, args);
 	}
-	
+
 	@Bean
 	public LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
-	
+
 	@Configuration
 	public static class MvcConfig extends WebMvcConfigurerAdapter {
-		
+
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
 			registry.addRedirectViewController("/", "/titulos");
 		}		
 	}
-	
+
 	@Bean
 	public AuditorAware<String> auditorAware(){
 		return new AuditorAwareImpl();
 
-	}
-	
+    }
 }

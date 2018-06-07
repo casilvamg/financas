@@ -1,5 +1,10 @@
 package com.works.cobranca.controller;
 
+import com.works.cobranca.model.InfoRendimento;
+import com.works.cobranca.model.Investimento;
+import com.works.cobranca.service.CadastroRendimentoService;
+import com.works.cobranca.service.InfoRendimentoService;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -12,16 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
-import com.works.cobranca.model.InfoRendimento;
-import com.works.cobranca.model.Investimento;
-import com.works.cobranca.service.CadastroRendimentoService;
-import com.works.cobranca.service.InfoRendimentoService;
 
 @Controller
 @RequestMapping("/info")
 public class InfoRendimentoController {
-	
-	@Autowired
+
+    @Autowired
 	private InfoRendimentoService infoRendimentoService;
 	
 	@Autowired

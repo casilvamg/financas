@@ -1,9 +1,7 @@
 package com.works.cobranca;
 
-import org.springframework.data.domain.AuditorAware;
-
 import com.works.cobranca.security.SecurityUtils;
-
+import org.springframework.data.domain.AuditorAware;
 
 /*
  *  A interface AuditorAware é usada para obter informações do usuário do Spring
@@ -11,10 +9,10 @@ import com.works.cobranca.security.SecurityUtils;
  * 
  */
 
-public class AuditorAwareImpl implements AuditorAware<String>{
+public class AuditorAwareImpl implements AuditorAware<String> {
 
-	    @Override
-	    public String getCurrentAuditor() {		 
+	@Override
+	    public String getCurrentAuditor() { 
 	    	return SecurityUtils.getCurrentLogin();
-	}
+    }
 }

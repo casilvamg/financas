@@ -58,7 +58,13 @@ public class CadastroTituloService {
 	}*/
 	
 	public Page<Titulo> filtrar(TituloFilter filtro, Pageable pageable) {
+				
 		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
+		
+		if (descricao.equalsIgnoreCase(SituacaoTitulo.PAGAR.toString()) || descricao.equalsIgnoreCase(SituacaoTitulo.RECEBER.toString())) {
+			return titulos.findByTitulosPorSituacao(SituacaoTitulo.valueOf(filtro.getDescricao().toUpperCase()), pageable);
+		}	
+	
 		return titulos.findByDescricaoContainingOrderByDataVencimentoAsc(descricao, pageable);
 	}
 

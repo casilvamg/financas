@@ -22,6 +22,11 @@ public interface Titulos extends JpaRepository<Titulo, Long> {
 	public List<Titulo> findAllByOrderByDataVencimentoAsc();	
 	public Page<Titulo> findByDescricaoContainingOrderByDataVencimentoAsc(String descricao, Pageable pageable);
 	
+	public Page<Titulo> findBySituacaoOrderByDataVencimentoAsc(String descricao, Pageable pageable);
+	
+	@Query("select titulo from Titulo titulo where situacao = :situacao Order By dataVencimento asc")
+    public Page<Titulo> findByTitulosPorSituacao(@Param("situacao") SituacaoTitulo situacao, Pageable pageable);
+	
 	@Query("select sum(valor) from Titulo where situacao = :situacao")
     public BigDecimal sumValorPorSituacao(@Param("situacao") SituacaoTitulo situacao);
 	
